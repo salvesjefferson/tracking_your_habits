@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:tracking_your_habits/src/datasources/user_datasource.dart';
 import 'package:tracking_your_habits/src/repositories/user_repository.dart';
@@ -11,8 +10,6 @@ import 'datasources/habit_datasource.dart';
 import 'repositories/habit_repository.dart';
 import 'viewmodels/habit_viewmodel.dart';
 
-import 'datasources/user_datasource.dart';
-import 'repositories/user_repository.dart';
 import 'viewmodels/user_viewmodel.dart';
 
 import 'viewmodels/register_viewmodel.dart';
