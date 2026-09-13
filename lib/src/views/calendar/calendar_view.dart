@@ -7,6 +7,7 @@ import '../../models/habit.dart';
 import '../../viewmodels/checkin_viewmodel.dart';
 import '../../viewmodels/habit_viewmodel.dart';
 import '/../l10n/app_localizations.dart';
+import '../../widgets/habit_check_card.dart';
 
 class CalendarView extends StatefulWidget {
   const CalendarView({super.key});
@@ -305,69 +306,50 @@ class _CalendarViewState extends State<CalendarView> {
                   ),
                   children: [
                     ...completedHabits.map(
-                          (habit) {
-                        return ListTile(
-                          leading: const Icon(
-                            Icons.check_circle,
-                          ),
-                          title: Text(habit.name),
-                          subtitle: Text(
-                            habit.description,
-                          ),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.check_circle),
-                            tooltip: l10n.undoCompletion,
-                            onPressed: () async {
-                              final firebaseUser =
-                                  FirebaseAuth.instance.currentUser;
+                      (habit) {
+                        return HabitCheckCard(
+                          habit: habit,
+                          isCompleted: true,
+                          onChanged: (value) async {
+                            final firebaseUser =
+                                FirebaseAuth.instance.currentUser;
 
-                              if (firebaseUser == null) return;
+                            if (firebaseUser == null) return;
 
-                              await context
-                                  .read<CheckInViewModel>()
-                                  .removeCheckIn(
+                            if (value == false) {
+                              await checkInViewModel.removeCheckIn(
                                 habit: habit,
                                 userId: firebaseUser.uid,
                                 date: _selectedDay,
                               );
-                            },
-                          ),
+                            }
+                          },
                         );
                       },
                     ),
 
                     ...pendingHabits.map(
-                          (habit) {
-                        return ListTile(
-                          leading: const Icon(
-                            Icons.radio_button_unchecked,
-                          ),
-                          title: Text(habit.name),
-                          subtitle: Text(
-                            habit.description,
-                          ),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.check_circle_outline),
-                            tooltip: l10n.markAsCompleted,
-                            onPressed: () async {
-                              final firebaseUser =
-                                  FirebaseAuth.instance.currentUser;
+                      (habit) {
+                        return HabitCheckCard(
+                          habit: habit,
+                          isCompleted: false,
+                          onChanged: (value) async {
+                            final firebaseUser =
+                                FirebaseAuth.instance.currentUser;
 
-                              if (firebaseUser == null) return;
+                            if (firebaseUser == null) return;
 
-                              await context
-                                  .read<CheckInViewModel>()
-                                  .checkIn(
+                            if (value == true) {
+                              await checkInViewModel.checkIn(
                                 habit: habit,
                                 userId: firebaseUser.uid,
                                 date: _selectedDay,
                               );
-                            },
-                          ),
+                            }
+                          },
                         );
                       },
                     ),
-
                     if (completedHabits.isEmpty &&
                         pendingHabits.isEmpty)
                       Padding(

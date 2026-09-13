@@ -94,5 +94,7 @@
   "takePhoto": "Take photo",
   "chooseFromGallery": "Choose from gallery",
   "removePhoto": "Remove photo",
-  "home": "Home"
+  "home": "Home",
+  "todayHabits": "Today's habits",
+"noHabitsToday": "No habits for today."
 }

@@ -25,10 +25,26 @@ class HabitCheckCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Espaço reservado para futuro ícone
-            const SizedBox(
+            Container(
               width: 48,
               height: 48,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Theme.of(context).colorScheme.primaryContainer,
+              ),
+              padding: const EdgeInsets.all(8),
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/icons/${habit.iconName}.png',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/icons/icon_habit.png',
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
+              ),
             ),
 
             const SizedBox(width: 8),

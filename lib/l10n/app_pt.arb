@@ -94,5 +94,7 @@
   "takePhoto": "Tirar foto",
   "chooseFromGallery": "Escolher da galeria",
   "removePhoto": "Remover foto",
-  "home": "Início"
+  "home": "Início",
+  "todayHabits": "Hábitos de hoje",
+  "noHabitsToday": "Nenhum hábito para hoje."
 }

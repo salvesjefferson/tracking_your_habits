@@ -18,25 +18,46 @@ class HomeContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final now = DateTime.now();
+    final localizations = MaterialLocalizations.of(context);
 
-    final today = MaterialLocalizations.of(
-      context,
-    ).formatFullDate(DateTime.now());
+    final weekDay =
+        localizations.formatFullDate(now).split(',').first;
+
+    final formattedWeekDay =
+        weekDay[0].toUpperCase() + weekDay.substring(1);
+
+    final date = localizations.formatMediumDate(now);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // DATA ATUAL
-          Text(
-            today,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
+          // DIA ATUAL
+          Center(
+            child: Column(
+              children: [
+                Text(
+                  formattedWeekDay,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  date,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
             ),
           ),
 
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
 
           // PERFIL
           Consumer<UserViewModel>(
@@ -234,7 +255,7 @@ class HomeContentView extends StatelessWidget {
 
           // HÁBITOS DE HOJE
           Text(
-            'Hábitos de hoje',
+            l10n.todayHabits,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -247,8 +268,8 @@ class HomeContentView extends StatelessWidget {
               final habits = habitViewModel.todayHabits;
 
               if (habits.isEmpty) {
-                return const Text(
-                  'Nenhum hábito para hoje.',
+                return Text(
+                  l10n.noHabitsToday,
                 );
               }
 

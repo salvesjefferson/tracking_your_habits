@@ -616,6 +616,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Home'**
   String get home;
+
+  /// No description provided for @todayHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s habits'**
+  String get todayHabits;
+
+  /// No description provided for @noHabitsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'No habits for today.'**
+  String get noHabitsToday;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

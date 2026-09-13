@@ -73,6 +73,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - assets/images/
+    - assets/icons/
+
   # gerar arquivos de localização
   generate: true
   # To add assets to your application, add an assets section, like this:

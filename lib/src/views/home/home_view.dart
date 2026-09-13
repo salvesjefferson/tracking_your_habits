@@ -96,8 +96,8 @@ class _HomeViewState extends State<HomeView> {
         index: _currentIndex,
         children: const [
           HomeContentView(),
-          HabitsView(),
           CalendarView(),
+          HabitsView(),
           StatisticsView(),
         ],
       ),      
@@ -115,14 +115,14 @@ class _HomeViewState extends State<HomeView> {
             label: l10n.home,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.check_circle_outline),
-            selectedIcon: const Icon(Icons.check_circle),
-            label: l10n.habits,
-          ),
-          NavigationDestination(
             icon: const Icon(Icons.calendar_month_outlined),
             selectedIcon: const Icon(Icons.calendar_month),
             label: l10n.calendar,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.check_circle_outline),
+            selectedIcon: const Icon(Icons.check_circle),
+            label: l10n.habits,
           ),
           NavigationDestination(
             icon: const Icon(Icons.bar_chart_outlined),

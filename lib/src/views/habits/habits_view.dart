@@ -57,116 +57,125 @@ class _HabitsViewState extends State<HabitsView> {
               final habit = viewModel.habits[index];
 
               return Card(
-                child: ListTile(
-                  title: Text(habit.name),
-                  subtitle: Text(habit.description),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
+                margin: const EdgeInsets.only(bottom: 12),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Consumer<CheckInViewModel>(
-                        builder: (context, checkInViewModel, child) {
-                          final firebaseUser =
-                              FirebaseAuth.instance.currentUser;
-
-                          if (firebaseUser == null) {
-                            return const SizedBox.shrink();
-                          }
-
-                          final today = DateTime.now();
-
-                          final isChecked =
-                          checkInViewModel.isCheckedIn(
-                            habit.id,
-                            firebaseUser.uid,
-                            today,
-                          );
-
-                          return IconButton(
-                            icon: Icon(
-                              isChecked
-                                  ? Icons.check_circle
-                                  : Icons.check_circle_outline,
+                      // ÍCONE E NOME
+                      Row(
+                        children: [
+                          Container(
+                            width: 48,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                             ),
-                            tooltip: isChecked
-                                ? l10n.undoCompletion
-                                : l10n.markAsCompleted,
+                            padding: const EdgeInsets.all(8),
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/icons/${habit.iconName}.png',
+                                width: 48,
+                                height: 48,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(width: 12),
+
+                          Expanded(
+                            child: Text(
+                              habit.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // DESCRIÇÃO DO HÁBITO
+                      if (habit.description.isNotEmpty) ...[
+                        const SizedBox(height: 12),
+                        Text(
+                          habit.description,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
+                              ),
+                        ),
+                      ],
+                      const SizedBox(height: 8),
+
+                      // BOTÕES DE EDIÇÃO E EXCLUSÃO
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            tooltip: l10n.editHabit,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => HabitFormView(habit: habit),
+                                ),
+                              );
+                            },
+                          ),
+
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            tooltip: l10n.deleteHabit,
                             onPressed: () async {
-                              if (isChecked) {
-                                await checkInViewModel.removeCheckIn(
-                                  habit: habit,
-                                  userId: firebaseUser.uid,
-                                  date: today,
-                                );
-                              } else {
-                                await checkInViewModel.checkIn(
-                                  habit: habit,
-                                  userId: firebaseUser.uid,
-                                  date: today,
+                              final confirm = await showDialog<bool>(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text(l10n.deleteHabit),
+                                    content: Text(
+                                      l10n.deleteHabitConfirmation(habit.name),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context, false);
+                                        },
+                                        child: Text(l10n.cancel),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context, true);
+                                        },
+                                        child: Text(l10n.deleteHabit),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
+                              if (confirm == true) {
+                                await context
+                                    .read<HabitViewModel>()
+                                    .deleteHabit(
+                                  habit.id,
+                                  habit.userId,
                                 );
                               }
                             },
-                          );
-                        },
-                      ),
-                      Text(
-                        switch (habit.frequency) {
-                          'Diário' => l10n.daily,
-                          'Semanal' => l10n.weekly,
-                          'Personalizado' => l10n.custom,
-                          _ => habit.frequency,
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        tooltip: l10n.editHabit,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => HabitFormView(habit: habit),
-                            ),
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        tooltip: l10n.deleteHabit,
-                        onPressed: () async {
-                          final confirm = await showDialog<bool>(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text(l10n.deleteHabit),
-                                content: Text(
-                                  l10n.deleteHabitConfirmation(habit.name),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context, false);
-                                    },
-                                    child: Text(l10n.cancel),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context, true);
-                                    },
-                                    child: Text(l10n.deleteHabit),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-
-                          if (confirm == true) {
-                            await context
-                                .read<HabitViewModel>()
-                                .deleteHabit(
-                              habit.id,
-                              habit.userId,
-                            );
-                          }
-                        },
+                          ),
+                        ],
                       ),
                     ],
                   ),

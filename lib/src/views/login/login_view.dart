@@ -359,6 +359,18 @@ class _LoginViewState extends State<LoginView> {
           key: _formKey,
           child: Column(
             children: [
+              // LOGO
+              ClipOval(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  width: 140,
+                  height: 140,
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              const SizedBox(height: 32),
+
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -457,8 +469,10 @@ class _LoginViewState extends State<LoginView> {
       appBar: AppBar(
         title: Text(l10n.login),
       ),
+      
       body: Consumer<LoginViewModel>(
         builder: (context, viewModel, child) {
+          
           if (_waitingForVerification) {
             return _buildVerificationView(
               context,

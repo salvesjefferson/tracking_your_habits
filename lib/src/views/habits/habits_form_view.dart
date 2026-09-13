@@ -10,6 +10,7 @@ class HabitFormView extends StatefulWidget {
   final Habit? habit;
 
   const HabitFormView({super.key, this.habit});
+  
 
   @override
   State<HabitFormView> createState() => _HabitFormViewState();
@@ -20,8 +21,24 @@ class _HabitFormViewState extends State<HabitFormView> {
 
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final List<String> _habitIcons = [
+    'icon_habit',
+    'icon_cart',
+    'icon_cellphone',
+    'icon_clean',
+    'icon_gym',
+    'icon_heart',
+    'icon_money',
+    'icon_read',
+    'icon_sleep',
+    'icon_study',
+    'icon_water',
+    'icon_work',
+  ];
 
   String _frequency = 'Diário';
+
+  String _selectedIcon = 'icon_habit';
 
   final List<int> _customDays = [];
 
@@ -36,6 +53,7 @@ class _HabitFormViewState extends State<HabitFormView> {
       _descriptionController.text = habit.description;
       _frequency = habit.frequency;
       _customDays.addAll(habit.customDays);
+      _selectedIcon = habit.iconName;
     }
   }
 
@@ -86,6 +104,7 @@ class _HabitFormViewState extends State<HabitFormView> {
           : List.from(_customDays),
       userId: firebaseUser.uid,
       createdAt: widget.habit?.createdAt ?? DateTime.now(),
+      iconName: _selectedIcon,
     );
 
     final viewModel = context.read<HabitViewModel>();
@@ -153,6 +172,62 @@ class _HabitFormViewState extends State<HabitFormView> {
                   labelText: l10n.description,
                   border: const OutlineInputBorder(),
                 ),
+              ),
+
+              const SizedBox(height: 16),
+
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Ícone',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: _habitIcons.map((iconName) {
+                  final isSelected = _selectedIcon == iconName;
+
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(30),
+                    onTap: () {
+                      setState(() {
+                        _selectedIcon = iconName;
+                      });
+                    },
+                    child: Container(
+                      width: 48,
+                      height: 48,
+                      padding: const EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: isSelected
+                            ? Theme.of(context).colorScheme.primaryContainer
+                            : Theme.of(context).colorScheme.surfaceContainerHighest,
+                        border: Border.all(
+                          color: isSelected
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.transparent,
+                          width: 2,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/icons/$iconName.png',
+                          width: 54,
+                          height: 54,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
 
               const SizedBox(height: 16),

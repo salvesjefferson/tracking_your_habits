@@ -276,4 +276,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get home => 'Início';
+
+  @override
+  String get todayHabits => 'Hábitos de hoje';
+
+  @override
+  String get noHabitsToday => 'Nenhum hábito para hoje.';
 }

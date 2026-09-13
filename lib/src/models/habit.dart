@@ -25,6 +25,9 @@ class Habit extends HiveObject {
   @HiveField(6)
   final DateTime createdAt;
 
+  @HiveField(7)
+final String iconName;
+
   Habit({
     required this.id,
     required this.name,
@@ -33,5 +36,6 @@ class Habit extends HiveObject {
     this.customDays = const [],
     required this.userId,
     required this.createdAt,
+    this.iconName = 'icon_habit',
   });
 }
