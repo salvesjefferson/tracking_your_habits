@@ -172,8 +172,7 @@ class HomeContentView extends StatelessWidget {
                           // INFORMAÇÕES DO USUÁRIO
                           Expanded(
                             child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   user.name,
@@ -194,7 +193,7 @@ class HomeContentView extends StatelessWidget {
                                       .bodyLarge,
                                 ),
 
-                                const SizedBox(height: 4),
+                                const SizedBox(height: 8),
 
                                 Text(
                                   '${user.experience} XP / '
@@ -202,6 +201,19 @@ class HomeContentView extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium,
+                                ),
+
+                                const SizedBox(height: 6),
+
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: LinearProgressIndicator(
+                                    value: userViewModel.experienceProgress.clamp(
+                                      0.0,
+                                      1.0,
+                                    ),
+                                    minHeight: 8,
+                                  ),
                                 ),
                               ],
                             ),
