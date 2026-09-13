@@ -93,5 +93,6 @@
   "accountCreationError": "Erro ao criar a conta.",
   "takePhoto": "Tirar foto",
   "chooseFromGallery": "Escolher da galeria",
-  "removePhoto": "Remover foto"
+  "removePhoto": "Remover foto",
+  "home": "Início"
 }

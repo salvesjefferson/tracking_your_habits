@@ -273,4 +273,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get removePhoto => 'Remove photo';
+
+  @override
+  String get home => 'Home';
 }

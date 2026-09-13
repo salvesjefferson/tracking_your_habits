@@ -12,6 +12,28 @@ class HabitViewModel extends ChangeNotifier {
 
   List<Habit> get habits => List.unmodifiable(_habits);
 
+  List<Habit> getHabitsForDate(DateTime date) {
+    return _habits.where((habit) {
+      if (habit.frequency == 'Diário') {
+        return true;
+      }
+
+      if (habit.frequency == 'Semanal') {
+        return habit.customDays.contains(date.weekday);
+      }
+
+      if (habit.frequency == 'Personalizado') {
+        return habit.customDays.contains(date.weekday);
+      }
+
+      return false;
+    }).toList();
+  }
+
+  List<Habit> get todayHabits {
+    return getHabitsForDate(DateTime.now());
+  }
+
   void loadHabits(String userId) {
     _habits = repository.getHabits(userId);
 
