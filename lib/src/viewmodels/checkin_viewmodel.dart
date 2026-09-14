@@ -43,10 +43,10 @@ class CheckInViewModel extends ChangeNotifier {
         return 10;
 
       case 'Semanal':
-        return 70;
+        return 50;
 
       case 'Personalizado':
-        return 10 * habit.customDays.length;
+        return 10;
 
       default:
         return 10;
