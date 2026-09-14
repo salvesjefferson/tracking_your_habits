@@ -296,4 +296,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get delete => 'Excluir';
+
+  @override
+  String get overallProgress => 'Progresso geral';
+
+  @override
+  String get noHabitsRegistered => 'Nenhum hábito cadastrado.';
 }

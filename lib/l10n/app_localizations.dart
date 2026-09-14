@@ -652,6 +652,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete;
+
+  /// No description provided for @overallProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall progress'**
+  String get overallProgress;
+
+  /// No description provided for @noHabitsRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'No habits registered.'**
+  String get noHabitsRegistered;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -110,5 +110,7 @@
   },
   "icon": "Ícone",
   "edit": "Editar",
-  "delete": "Excluir"
+  "delete": "Excluir",
+  "overallProgress": "Progresso geral",
+  "noHabitsRegistered": "Nenhum hábito cadastrado."
 }

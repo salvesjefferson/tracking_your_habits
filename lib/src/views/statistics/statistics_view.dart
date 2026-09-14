@@ -55,12 +55,12 @@ class StatisticsView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Progresso geral + porcentagem
+                        // PROGRESSO GERAL E PORCENTAGEM
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Progresso geral',
+                              l10n.overallProgress,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium
@@ -82,7 +82,7 @@ class StatisticsView extends StatelessWidget {
 
                         const SizedBox(height: 10),
 
-                        // Barra de progresso geral
+                        // BARRA DE PROGRESSO
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: LinearProgressIndicator(
@@ -93,7 +93,7 @@ class StatisticsView extends StatelessWidget {
 
                         const SizedBox(height: 16),
 
-                        // Melhor sequência
+                        // MELHOR SEQUÊNCIA
                         Row(
                           children: [
                       
@@ -119,9 +119,9 @@ class StatisticsView extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 if (habitViewModel.habits.isEmpty)
-                  const Center(
+                  Center(
                     child: Text(
-                      'Nenhum hábito cadastrado.',
+                      l10n.noHabitsRegistered,
                     ),
                   ),
 

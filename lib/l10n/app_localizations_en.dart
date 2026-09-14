@@ -296,4 +296,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get overallProgress => 'Overall progress';
+
+  @override
+  String get noHabitsRegistered => 'No habits registered.';
 }
