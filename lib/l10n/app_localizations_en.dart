@@ -282,4 +282,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noHabitsToday => 'No habits for today.';
+
+  @override
+  String experienceProgress(int current, int required) {
+    return '$current XP / $required XP';
+  }
+
+  @override
+  String get icon => 'Icon';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get delete => 'Delete';
 }

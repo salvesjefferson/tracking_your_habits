@@ -179,7 +179,7 @@ class _HabitFormViewState extends State<HabitFormView> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Ícone',
+                  l10n.icon,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

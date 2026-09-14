@@ -9,7 +9,6 @@ import '../../viewmodels/checkin_viewmodel.dart';
 import '../../viewmodels/habit_viewmodel.dart';
 import '../../viewmodels/photo_viewmodel.dart';
 import '../../viewmodels/user_viewmodel.dart';
-import '../../viewmodels/checkin_viewmodel.dart';
 import '../../widgets/habit_check_card.dart';
 
 class HomeContentView extends StatelessWidget {
@@ -196,11 +195,11 @@ class HomeContentView extends StatelessWidget {
                                 const SizedBox(height: 8),
 
                                 Text(
-                                  '${user.experience} XP / '
-                                  '${userViewModel.requiredExperience} XP',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium,
+                                  l10n.experienceProgress(
+                                    user.experience,
+                                    userViewModel.requiredExperience,
+                                  ),
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
 
                                 const SizedBox(height: 6),

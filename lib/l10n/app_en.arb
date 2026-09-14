@@ -96,5 +96,19 @@
   "removePhoto": "Remove photo",
   "home": "Home",
   "todayHabits": "Today's habits",
-"noHabitsToday": "No habits for today."
+  "noHabitsToday": "No habits for today.",
+  "experienceProgress": "{current} XP / {required} XP",
+  "@experienceProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "required": {
+        "type": "int"
+      }
+    }
+  },
+  "icon": "Icon",
+  "edit": "Edit",
+  "delete": "Delete"
 }

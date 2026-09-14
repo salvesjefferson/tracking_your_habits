@@ -628,6 +628,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No habits for today.'**
   String get noHabitsToday;
+
+  /// No description provided for @experienceProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} XP / {required} XP'**
+  String experienceProgress(int current, int required);
+
+  /// No description provided for @icon.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get icon;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
