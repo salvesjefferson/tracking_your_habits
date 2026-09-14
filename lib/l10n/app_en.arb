@@ -112,5 +112,40 @@
   "edit": "Edit",
   "delete": "Delete",
   "overallProgress": "Overall progress",
-  "noHabitsRegistered": "No habits registered."
+  "noHabitsRegistered": "No habits registered.",
+  "statisticsReport": "Statistics Report",
+  "generatedAt": "Generated on",
+  "completed": "completed",
+  "exportPdf": "Export PDF",
+  "statisticsReport": "Statistics Report",
+  "generatedAt": "Generated on",
+  "completed": "completed",
+  "exportPdf": "Export PDF",
+  "overallProgress": "Overall progress",
+  "noHabitsRegistered": "No habits registered.",
+  "levelLabel": "Level",
+  "experienceLabel": "Experience",
+  "pageLabel": "Page",
+  "reportPeriod": "Period: {month}/{year}",
+  "@reportPeriod": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "habitCompletedCount": "{completed} of {expected} completed",
+  "@habitCompletedCount": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "expected": {
+        "type": "int"
+      }
+    }
+  }
 }

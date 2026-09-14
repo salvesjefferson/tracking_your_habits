@@ -302,4 +302,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noHabitsRegistered => 'No habits registered.';
+
+  @override
+  String get statisticsReport => 'Statistics Report';
+
+  @override
+  String get generatedAt => 'Generated on';
+
+  @override
+  String get completed => 'completed';
+
+  @override
+  String get exportPdf => 'Export PDF';
+
+  @override
+  String get levelLabel => 'Level';
+
+  @override
+  String get experienceLabel => 'Experience';
+
+  @override
+  String get pageLabel => 'Page';
+
+  @override
+  String reportPeriod(int month, int year) {
+    return 'Period: $month/$year';
+  }
+
+  @override
+  String habitCompletedCount(int completed, int expected) {
+    return '$completed of $expected completed';
+  }
 }

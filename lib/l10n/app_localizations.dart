@@ -664,6 +664,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No habits registered.'**
   String get noHabitsRegistered;
+
+  /// No description provided for @statisticsReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Statistics Report'**
+  String get statisticsReport;
+
+  /// No description provided for @generatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Generated on'**
+  String get generatedAt;
+
+  /// No description provided for @completed.
+  ///
+  /// In en, this message translates to:
+  /// **'completed'**
+  String get completed;
+
+  /// No description provided for @exportPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Export PDF'**
+  String get exportPdf;
+
+  /// No description provided for @levelLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get levelLabel;
+
+  /// No description provided for @experienceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Experience'**
+  String get experienceLabel;
+
+  /// No description provided for @pageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Page'**
+  String get pageLabel;
+
+  /// No description provided for @reportPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Period: {month}/{year}'**
+  String reportPeriod(int month, int year);
+
+  /// No description provided for @habitCompletedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{completed} of {expected} completed'**
+  String habitCompletedCount(int completed, int expected);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

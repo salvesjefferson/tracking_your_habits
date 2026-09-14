@@ -112,5 +112,40 @@
   "edit": "Editar",
   "delete": "Excluir",
   "overallProgress": "Progresso geral",
-  "noHabitsRegistered": "Nenhum hábito cadastrado."
+  "noHabitsRegistered": "Nenhum hábito cadastrado.",
+  "statisticsReport": "Relatório de Estatísticas",
+  "generatedAt": "Gerado em",
+  "completed": "concluídos",
+  "exportPdf": "Exportar PDF",
+  "statisticsReport": "Relatório de Estatísticas",
+  "generatedAt": "Gerado em",
+  "completed": "concluídos",
+  "exportPdf": "Exportar PDF",
+  "overallProgress": "Progresso geral",
+  "noHabitsRegistered": "Nenhum hábito cadastrado.",
+  "levelLabel": "Nível",
+  "experienceLabel": "Experiência",
+  "pageLabel": "Página",
+  "reportPeriod": "Período: {month}/{year}",
+  "@reportPeriod": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "habitCompletedCount": "{completed} de {expected} concluídos",
+  "@habitCompletedCount": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "expected": {
+        "type": "int"
+      }
+    }
+  }
 }

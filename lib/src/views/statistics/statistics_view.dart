@@ -5,6 +5,11 @@ import '../../viewmodels/checkin_viewmodel.dart';
 import '../../viewmodels/habit_viewmodel.dart';
 
 import '/../l10n/app_localizations.dart';
+import 'package:printing/printing.dart';
+
+import '../../services/statistics_pdf_service.dart';
+import '../../viewmodels/user_viewmodel.dart';
+import '../../viewmodels/photo_viewmodel.dart';
 
 class StatisticsView extends StatelessWidget {
   const StatisticsView({super.key});
@@ -16,6 +21,83 @@ class StatisticsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.statistics),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf),
+            tooltip: l10n.exportPdf,
+            onPressed: () async {
+              final userViewModel = context.read<UserViewModel>();
+              final habitViewModel = context.read<HabitViewModel>();
+              final checkInViewModel = context.read<CheckInViewModel>();
+              final photoViewModel = context.read<PhotoViewModel>();
+
+              final user = userViewModel.user;
+
+              if (user == null) return;
+
+              final currentMonth = DateTime.now();
+
+              final overallProgress =
+                  checkInViewModel.getOverallMonthlyProgress(
+                habitViewModel.habits,
+                currentMonth,
+              );
+
+              // ↓ ESTA É A CHAMADA DO StatisticsPdfService
+              final pdfBytes =
+                  await StatisticsPdfService().generateStatisticsPdf(
+                user: user,
+                profilePhotoPath: photoViewModel.photoPath,
+                habits: habitViewModel.habits,
+                bestStreak: checkInViewModel.bestStreak,
+                overallProgress: overallProgress,
+                month: currentMonth,
+
+                getCompleted: (habit) {
+                  return checkInViewModel.getHabitCompletedForMonth(
+                    habit,
+                    currentMonth,
+                  );
+                },
+
+                getExpected: (habit) {
+                  return checkInViewModel.getHabitExpectedForMonth(
+                    habit,
+                    currentMonth,
+                  );
+                },
+
+                // L10N
+                reportTitle: l10n.statisticsReport,
+                overallProgressLabel: l10n.overallProgress,
+                habitsLabel: l10n.habits,
+                noHabitsLabel: l10n.noHabitsRegistered,
+                levelLabel: l10n.levelLabel,
+                experienceLabel: l10n.experienceLabel,
+                bestStreakLabel: l10n.bestStreak,
+                generatedAtLabel: l10n.generatedAt,
+                pageLabel: l10n.pageLabel,
+
+                monthLabel: l10n.reportPeriod(
+                  currentMonth.month,
+                  currentMonth.year,
+                ),
+
+                habitCompletedText: (completed, expected) {
+                  return l10n.habitCompletedCount(
+                    completed,
+                    expected,
+                  );
+                },
+              );
+
+              // Abre a visualização/impressão do PDF
+              await Printing.layoutPdf(
+                onLayout: (_) async => pdfBytes,
+              );
+            },
+          ),
+        ],
       ),
       body: Consumer2<CheckInViewModel, HabitViewModel>(
         builder: (
