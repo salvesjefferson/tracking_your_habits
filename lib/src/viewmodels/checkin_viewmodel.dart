@@ -168,6 +168,178 @@ class CheckInViewModel extends ChangeNotifier {
     return best;
   }
 
+  // MÉTODOS PARA CALCULAR A NOVA ESTATÍSTICA
+  double getOverallMonthlyProgress(
+    List<Habit> habits,
+    DateTime month,
+  ) {
+    int totalExpected = 0;
+    int totalCompleted = 0;
+
+    for (final habit in habits) {
+      totalExpected += getHabitExpectedForMonth(
+        habit,
+        month,
+      );
+
+      totalCompleted += getHabitCompletedForMonth(
+        habit,
+        month,
+      );
+    }
+
+    if (totalExpected == 0) {
+      return 0;
+    }
+
+    return (totalCompleted / totalExpected).clamp(
+      0.0,
+      1.0,
+    );
+  }
+
+  bool _isHabitScheduledForDate(
+    Habit habit,
+    DateTime date,
+  ) {
+    switch (habit.frequency) {
+      case 'Diário':
+        return true;
+
+      case 'Semanal':
+      case 'Personalizado':
+        return habit.customDays.contains(date.weekday);
+
+      default:
+        return false;
+    }
+  }
+
+  int getHabitExpectedForMonth(
+    Habit habit,
+    DateTime month,
+  ) {
+    final firstDay = DateTime(
+      month.year,
+      month.month,
+      1,
+    );
+
+    final lastDay = DateTime(
+      month.year,
+      month.month + 1,
+      0,
+    );
+
+    final habitCreatedAt = DateTime(
+      habit.createdAt.year,
+      habit.createdAt.month,
+      habit.createdAt.day,
+    );
+
+    int expected = 0;
+
+    for (
+      DateTime date = firstDay;
+      !date.isAfter(lastDay);
+      date = date.add(const Duration(days: 1))
+    ) {
+      // Não conta dias anteriores à criação do hábito.
+      if (date.isBefore(habitCreatedAt)) {
+        continue;
+      }
+
+      if (_isHabitScheduledForDate(habit, date)) {
+        expected++;
+      }
+    }
+
+    return expected;
+  }
+
+  int getHabitCompletedForMonth(
+    Habit habit,
+    DateTime month,
+  ) {
+    final firstDay = DateTime(
+      month.year,
+      month.month,
+      1,
+    );
+
+    final lastDay = DateTime(
+      month.year,
+      month.month + 1,
+      0,
+    );
+
+    final habitCreatedAt = DateTime(
+      habit.createdAt.year,
+      habit.createdAt.month,
+      habit.createdAt.day,
+    );
+
+    return _checkIns
+        .where((checkIn) {
+          if (checkIn.habitId != habit.id) {
+            return false;
+          }
+
+          final date = DateTime(
+            checkIn.date.year,
+            checkIn.date.month,
+            checkIn.date.day,
+          );
+
+          if (date.isBefore(firstDay) ||
+              date.isAfter(lastDay)) {
+            return false;
+          }
+
+          if (date.isBefore(habitCreatedAt)) {
+            return false;
+          }
+
+          return _isHabitScheduledForDate(
+            habit,
+            date,
+          );
+        })
+        .map(
+          (checkIn) => DateTime(
+            checkIn.date.year,
+            checkIn.date.month,
+            checkIn.date.day,
+          ),
+        )
+        .toSet()
+        .length;
+  }
+
+  double getHabitMonthlyProgress(
+    Habit habit,
+    DateTime month,
+  ) {
+    final expected = getHabitExpectedForMonth(
+      habit,
+      month,
+    );
+
+    if (expected == 0) {
+      return 0;
+    }
+
+    final completed = getHabitCompletedForMonth(
+      habit,
+      month,
+    );
+
+    return (completed / expected).clamp(
+      0.0,
+      1.0,
+    );
+  }
+
   double getSuccessRate(List<Habit> habits) {
     if (habits.isEmpty) {
       return 0;
